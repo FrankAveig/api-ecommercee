@@ -7,7 +7,7 @@ require('./models');
 //Importar expres, mongoose y router
 const express = require('express');
 const mongoose= require('mongoose');
-const routes = requiere('./routes');
+const routes = require('./routes');
 const cors = require('cors');
 
 //instanciar la app
@@ -28,5 +28,5 @@ app.use((req,res)=>{
 
 //Levantar el servidor 
 app.listen(process.env.PORT,()=>{
-    console.log(`Servidor iniciado en el puerto${process.env.PORT}`);
+    console.log('Servidor iniciado en el puerto'+process.env.PORT);
 })

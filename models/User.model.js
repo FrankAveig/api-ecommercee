@@ -12,9 +12,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    eMail:{
-        require:true,
-        uniqued: true,
+    mail:{
+        type: String,
+        required:true,
+        unique: true,
         match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'email invalido'],
     },
     city:{
@@ -30,12 +31,16 @@ const UserSchema = new mongoose.Schema({
             'customer',
             'admin'
         ],
-        default:'cliente',
+        default:'customer',
         required:true,
     },
     password:{
         type:String,
         required:true
+    },
+    img:{
+        type:String,
+        default:'wwww.hola.com'
     },
     salt:{
         type:String,
@@ -51,12 +56,12 @@ UserSchema.methods.encryptString = function(stringToEncript,salt){
 }
 
 
-UserSchema.methods.hasPassword = function(password){
+UserSchema.methods.hashPassword = function(password){
   /* Generating a random string of 16 characters. */
     this.salt = crypto.randomBytes(16).toString('hex');
     /* Assigning the value of the function `encryptString` to the property `password` of the object
     `this`. */
-    this.password = this.encryptString(password,this,salt)
+    this.password = this.encryptString(password,this.salt)
 }
 
 /* Verifying the password. */
@@ -69,6 +74,7 @@ UserSchema.methods.generateJWT = function(){
     return jwt.sign({idUser: this._id,type:this.type},process.env.SECRET)
 }
 
+/* Creating a token. */
 UserSchema.methods.onSingGenerateJWT = function(){
     return{
         idUser: this._id,
@@ -79,3 +85,5 @@ UserSchema.methods.onSingGenerateJWT = function(){
 
 /* Creating a model called `User` with the schema `UserSchema` and the collection `collectionUser`. */
 mongoose.model('User',UserSchema,'collectionUser')
+
+

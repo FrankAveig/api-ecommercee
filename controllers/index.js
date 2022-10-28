@@ -1,0 +1,35 @@
+const {
+    registro,
+    verUsuarios,
+    filtrarUsuarios,
+    eliminarUsuarioPorId,
+    eliminarUsuariosPorFiltro,
+    actualizarUsuario,
+    login,
+    verInfoUsuario,
+    verUsuario
+  } = require("./User.controller");
+  
+  const{
+    nuevoProducto,
+    verProductos,
+    eliminarProductoPorId,
+    actualizarProductoPorId,
+    verMisProductosCreados,
+  } = require('./Product.controller')
+  module.exports = {
+    registro,
+    verUsuarios,
+    filtrarUsuarios,
+    eliminarUsuarioPorId,
+    eliminarUsuariosPorFiltro,
+    actualizarUsuario,
+    login,
+    verInfoUsuario,
+    verUsuario,
+    nuevoProducto,
+    verProductos,
+    eliminarProductoPorId,
+    actualizarProductoPorId,
+    verMisProductosCreados,
+  };
