@@ -17,6 +17,10 @@ const {
     actualizarProductoPorId,
     verMisProductosCreados,
   } = require('./Product.controller')
+  const{
+    nuevaVenta,
+    verVentas,
+  } = require('./Sale.controller')
   module.exports = {
     registro,
     verUsuarios,
@@ -32,4 +36,6 @@ const {
     eliminarProductoPorId,
     actualizarProductoPorId,
     verMisProductosCreados,
+    nuevaVenta,
+    verVentas,
   };
