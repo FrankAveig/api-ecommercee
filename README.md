@@ -29,11 +29,12 @@ Si se desea hacer uso del codigo de la api, para su correcto funcionamiento se d
 ### URL Base
 `https://api-ecommercee.vercel.app/v1`
 ### EndPoints User
+---
 #### Registro de usuarios
 ```http
   POST /user/
 ```
-Este recurso permite crear un nuevo usuario 
+> Este recurso permite crear un nuevo usuario 
 ###### Body Request
 ```json
 Formato Json
@@ -58,12 +59,12 @@ Formato Json
     }
 }
 ```
-
+---
 #### Login de usuario
 ```http
   POST /user/login
 ```
-Este recurso permite logear al usuario generando un token de autorización
+> Este recurso permite logear al usuario generando un token de autorización
 ###### Body Request
 ```json
 Formato Json
@@ -80,12 +81,12 @@ Formato Json
     "detalles": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOiI2MzVjZDkyYjk2ZTAxYTFjOWRiNDU1YzEiLCJ0eXBlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NjcwMjk0ODF9.ZHq7vv26JHaIltYTU45JnOrPfUNGhiYRUIatKFnvSPU"
 }
 ```
-
+---
 #### Obtener todos los usuarios
 ```http
   GET /user/getAll
 ```
-Este recurso devuelve los datos de los usuarios. **Solo podras usar esta ruta cuando este estes logeado como administrador ** 
+> Este recurso devuelve los datos de los usuarios. **Solo podras usar esta ruta cuando este estes logeado como administrador** 
 
 ###### Header Request
 | KEY  |VALUE   |
@@ -115,12 +116,12 @@ Este recurso devuelve los datos de los usuarios. **Solo podras usar esta ruta cu
     ]
 }
 ```
-
+---
 #### Obtener los datos del usuario logeado
 ```http
   GET /user/
 ```
-Este recurso devuelve los datos del usuario logead. **Solo podras usar esta ruta cuando estes logeado ya que tendras el token de login ** 
+> Este recurso devuelve los datos del usuario logead. **Solo podras usar esta ruta cuando estes logeado ya que tendras el token de login** 
 
 ###### Header Request
 | KEY  |VALUE   |
@@ -142,12 +143,12 @@ Este recurso devuelve los datos del usuario logead. **Solo podras usar esta ruta
     ]
 }
 ```
-
+---
 #### Obtener los datos de un usuario a través de uno de sus atributos 
 ```http
   GET /user/filtrar
 ```
-Este recurso devuelve los datos de los usuarios que cumplan con los parametros a travez del body. **Solo podras usar esta ruta cuando estes logeado como administrador ** 
+> Este recurso devuelve los datos de los usuarios que cumplan con los parametros a travez del body. **Solo podras usar esta ruta cuando estes logeado como administrador** 
 
 ###### Header Request
 | KEY  |VALUE   |
@@ -185,12 +186,13 @@ Formato Json
     ]
 }
 ```
+---
 #### Obtener los de un usuario a través de un ID 
 ```http
   GET /user/:id
   Ejemplo /user/635cd92b96e01a1c9db455c1    
 ```
-Este recurso devuelve los datos de un usuario buscado por su ID pasado a través de params. **Solo podras usar esta ruta cuando estes logeado como administrador ** 
+> Este recurso devuelve los datos de un usuario buscado por su ID pasado a través de params. **Solo podras usar esta ruta cuando estes logeado como administrador** 
 
 ###### Query Params
 | KEY  |VALUE   |
