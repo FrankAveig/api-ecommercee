@@ -24,4 +24,4 @@ const ProductSchema = new mongoose.Schema({
 
 })
 
-mongoose.model("Product", ProductSchema, "collectionProduct");
+mongoose.model('Product', ProductSchema, "collectionProduct");
