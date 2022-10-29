@@ -2,7 +2,7 @@
 
 **TABLA DE CONTENIDO**
 
-1.-[Descripción](Descripción)
+1.-[Descripción](#Descripción)
 
 2.-[Dependencias](#Dependencias)
 
@@ -28,13 +28,21 @@ Si se desea hacer uso del codigo de la api, para su correcto funcionamiento se d
 ## Documentacion para uso de la api
 ### URL Base
 `https://api-ecommercee.vercel.app/v1`
-### EndPoints User
+
+
+### **END-POINTS USER**
+
+<details>
+	
+  <summary>Ver información</summary>
+	
 ---
 #### Registro de usuarios
 > Este recurso permite crear un nuevo usuario 
 <details>
   <summary>Ver información</summary>
-
+	
+###### End point
 ```http
   POST /user/
 ```
@@ -96,10 +104,14 @@ Formato Json
 
 ---
 #### Obtener todos los usuarios
+> Este recurso devuelve los datos de los usuarios. **Solo podras usar esta ruta cuando este estes logeado como administrador** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point	
 ```http
   GET /user/getAll
 ```
-> Este recurso devuelve los datos de los usuarios. **Solo podras usar esta ruta cuando este estes logeado como administrador** 
 
 ###### Header Request
 | KEY  |VALUE   |
@@ -129,12 +141,21 @@ Formato Json
     ]
 }
 ```
+</details>	
+	
 ---
+	
+	
 #### Obtener los datos del usuario logeado
+> Este recurso devuelve los datos del usuario logead. **Solo podras usar esta ruta cuando estes logeado ya que tendras el token de login** 
+
+<details>
+  <summary>Ver información</summary>
+
+###### End point
 ```http
   GET /user/
 ```
-> Este recurso devuelve los datos del usuario logead. **Solo podras usar esta ruta cuando estes logeado ya que tendras el token de login** 
 
 ###### Header Request
 | KEY  |VALUE   |
@@ -156,12 +177,22 @@ Formato Json
     ]
 }
 ```
+</details>
+
 ---
+	
 #### Obtener los datos de un usuario a través de uno de sus atributos 
+> Este recurso devuelve los datos de los usuarios que cumplan con los parametros a travez del body. **Solo podras usar esta ruta cuando estes logeado como administrador** 
+	
+<details>
+ <summary>Ver información</summary>
+	
+###### End point
+	
 ```http
   GET /user/filtrar
 ```
-> Este recurso devuelve los datos de los usuarios que cumplan con los parametros a travez del body. **Solo podras usar esta ruta cuando estes logeado como administrador** 
+
 
 ###### Header Request
 | KEY  |VALUE   |
@@ -199,13 +230,21 @@ Formato Json
     ]
 }
 ```
+</details>
+	
 ---
+	
 #### Obtener los de un usuario a través de un ID 
+> Este recurso devuelve los datos de un usuario buscado por su ID pasado a través de params. **Solo podras usar esta ruta cuando estes logeado como administrador** 
+
+<details>
+ <summary>Ver información</summary>
+	
+###### End point
 ```http
   GET /user/:id
   Ejemplo /user/635cd92b96e01a1c9db455c1    
 ```
-> Este recurso devuelve los datos de un usuario buscado por su ID pasado a través de params. **Solo podras usar esta ruta cuando estes logeado como administrador** 
 
 ###### Query Params
 | KEY  |VALUE   |
@@ -233,3 +272,30 @@ Formato Json
     ]
 }
 ```
+
+</details>
+	
+---
+	
+</details>
+
+
+
+### **END-POINTS PRODUCTOS**
+
+
+
+<details>
+	
+  <summary>Ver información</summary>
+
+</details>
+
+### **END-POINTS VENTA-COMPRA**
+
+<details>
+	
+  <summary>Ver información</summary>
+
+</details>
+	
