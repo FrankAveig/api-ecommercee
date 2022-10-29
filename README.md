@@ -154,8 +154,10 @@ Formato Json
 
 ###### End point
 ```http
-  GET /user/
+  -POST /user/
 ```
+
+
 
 ###### Header Request
 | KEY  |VALUE   |
@@ -276,7 +278,148 @@ Formato Json
 </details>
 	
 ---
-	
+
+#### Actualizar la información de los usuarios encontradoa travez del ID de usuario
+> Este recurso busca un usuario a travez en un id pasado por parametro y actualiza los valores pasados por el body. **Solo podras usar esta ruta cuando estes logeado como administrador ya que tendras el token de admin** 
+
+<details>
+  <summary>Ver información</summary>
+
+###### End point
+```http
+  -PUT /user/:ID
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+###### Query Params
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| | 635cd92b96e01a1c9db455c1    |
+
+###### Body Request
+```json
+Formato Json
+{
+	"name": "Dario",
+	"surname": "Dueñas"
+}
+```
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Usuario actualizado",
+    "detalles": {
+        "_id": "635cd92b96e01a1c9db455c1",
+        "name": "Dario",
+        "surname": "Dueñas",
+        "mail": "prueba@prueba.com",
+        "city": "Guayaquil",
+        "age": 29,
+        "type": "customer",
+        "img": "url",
+    }
+}
+```
+</details>
+
+---
+
+#### Elimina un usuario por el Id del usuario
+> Este recurso elimina un usuario buscandolo por el ID pasado por parametro. **Solo podras usar esta ruta cuando estes logeado como administrador ya que tendras el token de admin** 
+
+<details>
+  <summary>Ver información</summary>
+
+###### End point
+```http
+  DELETE /user/delete/:id
+  Ejemplo  /user/delete/635cd92b96e01a1c9db455c1
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+###### Query Params
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| | 635cd92b96e01a1c9db455c1    |
+
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Usuario eliminado",
+    "detalles": {
+        "_id": "635cd92b96e01a1c9db455c1",
+        "name": "Dario",
+        "surname": "Dueñas",
+        "mail": "prueba@prueba.com",
+        "city": "Guayaquil",
+        "age": 29,
+        "type": "customer",
+        "img": "url",
+    }
+}
+```
+
+
+</details>
+
+---
+
+#### Eliminar usuarios a travez de una busqueda de sus propiedades
+> Este recurso elimina los usuario que tengan la propiedad que se pasa por el body **Solo podras usar esta ruta cuando estes logeado como administrador ya que tendras el token de admin** 
+
+<details>
+  <summary>Ver información</summary>
+
+###### End point
+```http
+   DELETE /user/
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+
+
+###### Body Request
+```json
+Formato Json
+{
+	"age": 29
+}
+```
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Usuarios eliminados",
+    "detalles": {
+        "acknowledged": true,
+        "deletedCount": 2
+    }
+}
+```
+</details>
+
+---
+
+
+</details>
+
 </details>
 
 
