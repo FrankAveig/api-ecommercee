@@ -16,12 +16,14 @@ const SaleSchema = new mongoose.Schema({
       type: [
         {
           type: mongoose.ObjectId,
-          ref: "Products",
+          ref: "Product",
         },
       ],
     },
   },
-
+  {
+    timestamps: true,
+  }
 );
 
 mongoose.model('Sale',SaleSchema,'collectionnSales');
