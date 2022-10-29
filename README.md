@@ -143,7 +143,7 @@ Este recurso devuelve los datos del usuario logead. **Solo podras usar esta ruta
 }
 ```
 
-#### Obtener los datos del usuario logeado
+#### Obtener los datos de un usuario a través de uno de sus atributos 
 ```http
   GET /user/filtrar
 ```
