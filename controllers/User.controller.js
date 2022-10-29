@@ -126,7 +126,7 @@ const verUsuarios = async (req, res) => {
       const eliminado = await User.findByIdAndDelete(id);
       return res.status(200).json({ mensaje: "Usuario eliminado", detalles: eliminado , id });
     } catch (e) {
-      return res.status(400).json({ mensaje: "Error", detalles: e.message });
+      return res.status(400).json({ mensaje: "Error", detalles: e.message, id });
     }
   };
   
