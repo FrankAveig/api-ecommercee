@@ -426,11 +426,59 @@ Formato Json
 
 ### **END-POINTS PRODUCTOS**
 
-
-
 <details>
 	
   <summary>Ver información</summary>
+  
+  ---
+#### Registro de nuevo producto
+> Este recurso permite crear un nuevo producto,**Solo podras usar esta ruta cuando estes logeado como administrador ya que tendras el token de admin** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  POST /product/
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+###### Body Request
+```json
+Formato Json
+{
+	"name": "Producto 1",
+	"description": "Aqui escribir una descripción",
+	"img": "url",
+	"price": 200,
+	"age": 29,
+
+}
+```
+###### Response
+```javascript
+{
+    "mensaje": "Producto creado",
+    "detalles": {
+        "name": "Producto 1",
+        "description": "Aqui escribir una descripción",
+        "img": "url",
+        "price": 200,
+        "uploader": {
+            "_id": "635da9cd93c3906e28f08a27",
+            "name": "Frank"
+        },
+        "_id": "635daa1293c3906e28f08a2e",
+        "__v": 0
+    }
+}
+```
+</details>
+
+---
 
 </details>
 
