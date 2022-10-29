@@ -30,7 +30,7 @@ router.get("/filtrar", auth, filtrarUsuarios);
 // busca un usuario por el id pasado por parametro, este endpoint solo puede ser usado por un usuario tipo administrador
 router.get("/:id", auth, verUsuario);
 // elimina un usuario por el id pasado por parametro, este endpoint solo puede ser usado por un usuario tipo administrador
-router.delete("/delete:id", auth, eliminarUsuarioPorId);
+router.delete("/delete/:id", auth, eliminarUsuarioPorId);
 // elimina un usuario por un parametro pasado por el body, este endpoint solo puede ser usado por un usuario tipo administrador
 router.delete("/", auth, eliminarUsuariosPorFiltro);
 // busca un usuario a travez en un id pasado por parametro y actualiza los valores pasados por el body
