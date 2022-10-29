@@ -31,6 +31,8 @@ Si se desea hacer uso del codigo de la api, para su correcto funcionamiento se d
 ### EndPoints User
 ---
 #### Registro de usuarios
+<details>
+<summary>Desplegar </summary>
 ```http
   POST /user/
 ```
@@ -59,6 +61,7 @@ Formato Json
     }
 }
 ```
+<details>
 ---
 #### Login de usuario
 ```http
