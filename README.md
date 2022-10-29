@@ -2,7 +2,7 @@
 
 **TABLA DE CONTENIDO**
 
-1.-[Descripción](#Descripción)
+1.-[Descripción](Descripción)
 
 2.-[Dependencias](#Dependencias)
 
@@ -31,12 +31,14 @@ Si se desea hacer uso del codigo de la api, para su correcto funcionamiento se d
 ### EndPoints User
 ---
 #### Registro de usuarios
+> Este recurso permite crear un nuevo usuario 
 <details>
-<summary>Desplegar </summary>
+  <summary>Ver información</summary>
+
 ```http
   POST /user/
 ```
-> Este recurso permite crear un nuevo usuario 
+
 ###### Body Request
 ```json
 Formato Json
@@ -61,13 +63,19 @@ Formato Json
     }
 }
 ```
-<details>
+</details>
+	
 ---
 #### Login de usuario
+> Este recurso permite logear al usuario generando un token de autorización
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
 ```http
   POST /user/login
 ```
-> Este recurso permite logear al usuario generando un token de autorización
+
 ###### Body Request
 ```json
 Formato Json
@@ -84,6 +92,8 @@ Formato Json
     "detalles": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOiI2MzVjZDkyYjk2ZTAxYTFjOWRiNDU1YzEiLCJ0eXBlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NjcwMjk0ODF9.ZHq7vv26JHaIltYTU45JnOrPfUNGhiYRUIatKFnvSPU"
 }
 ```
+</details>
+
 ---
 #### Obtener todos los usuarios
 ```http
