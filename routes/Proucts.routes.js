@@ -10,7 +10,9 @@ const {
 } = require("../controllers");
 
 //rutas
+//crear un nuevo producto
 router.post("/", auth, nuevoProducto);
+//Ver todos los productos
 router.get("/getAll", auth, verProductos);
 router.get("/misPeliculas", auth, verMisProductosCreados);
 router.delete("/:id", auth, eliminarProductoPorId);
