@@ -6,7 +6,7 @@
 
 2.-[Dependencias](#Dependencias)
 
-2.-[Documentación para uso de la api](#documentación-para-uso-de-la-api)
+2.-[Documentación para uso de la api](#Documentacion para uso de la api)
 
 ## Descripción
 Esta es una api desarrollada para ser utilizada en un e-commerce con una base de datos no relacional en especifico MongoDb, los modelos con los que cuenta la api para crear las colecciones son :
