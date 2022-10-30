@@ -117,16 +117,16 @@ const verUsuarios = async (req, res) => {
         if (req.user.type !== "admin") {
             return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
           }
-      const { id } = req.params.id;
+      const  id  = req.params.id;
       if (id.length !== 24)
         return res.status(400).json({ mensaje: "Error", detalles: "ID no válido" });
       const usuario = await User.findById(id);
       if (!usuario)
         return res.status(404).json({ mensaje: "Error", detalles: "Usuario no encontrado" });
       const eliminado = await User.findByIdAndDelete(id);
-      return res.status(200).json({ mensaje: "Usuario eliminado", detalles: eliminado , id });
+      return res.status(200).json({ mensaje: "Usuario eliminado", detalles: eliminado });
     } catch (e) {
-      return res.status(400).json({ mensaje: "Error", detalles: e.message });
+      return res.status(400).json({ mensaje: "Errorr", detalles: e.message });
     }
   };
   
