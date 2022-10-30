@@ -6,7 +6,7 @@
 
 2.-[Dependencias](#Dependencias)
 
-2.-[Documentación para uso de la api](#Documentación-para-uso-de-la-api)
+2.-[Documentación para uso de la api](#documentación-para-uso-de-la-api)
 
 ## Descripción
 Esta es una api desarrollada para ser utilizada en un e-commerce con una base de datos no relacional en especifico MongoDb, los modelos con los que cuenta la api para crear las colecciones son :
@@ -432,7 +432,7 @@ Formato Json
   
   ---
 #### Registro de nuevo producto
-> Este recurso permite crear un nuevo producto,**Solo podras usar esta ruta cuando estes logeado como administrador ya que tendras el token de admin** 
+> Este recurso permite crear un nuevo producto,**Solo podras usar esta ruta cuando tengas un token de admin** 
 <details>
   <summary>Ver información</summary>
 	
@@ -472,6 +472,200 @@ Formato Json
             "name": "Frank"
         },
         "_id": "635daa1293c3906e28f08a2e",
+        "__v": 0
+    }
+}
+```
+</details>
+
+---
+
+#### Ver todos los productos creados
+> Este recurso permite visualizar todos los productos que han sido creados,**Solo podras usar esta ruta cuando tengas un token de admin** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  GET /product/getAll
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Productos encontrados",
+    "detalles": [
+        {
+            "_id": "635c150ac715677c436d6aa8",
+            "name": "Iphoneee",
+            "description": "telefono",
+            "img": "url",
+            "price": 1500,
+            "uploader": {
+                "_id": "635bf75b4e96275e9ddc01c7"
+            },
+            "__v": 0
+        },
+        {
+            "_id": "635c8d1c3d5d7101e62c04e4",
+            "name": "Iphoneee",
+            "description": "telefono",
+            "img": "url",
+            "price": 1500,
+            "uploader": {
+                "_id": "635bf75b4e96275e9ddc01c7"
+            },
+            "__v": 0
+        },
+        {
+            "_id": "635daa1293c3906e28f08a2e",
+            "name": "Producto 1",
+            "description": "Aqui escribir una descripción",
+            "img": "url",
+            "price": 200,
+            "uploader": {
+                "_id": "635da9cd93c3906e28f08a27"
+            },
+            "__v": 0
+        }
+    ]
+}
+```
+</details>
+
+---
+
+#### Ver los productos que el usuario logeado he creado
+> Este recurso permite visualizar todos los productos que el administrador logeado ha creado,**Solo podras usar esta ruta cuando tengas un token de admin** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  GET /product/misPeliculas
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Productos encontradas",
+    "detalles": [
+        {
+            "_id": "635c150ac715677c436d6aa8",
+            "name": "Iphoneee",
+            "description": "telefono",
+            "img": url",
+            "price": 1500,
+            "uploader": {
+                "_id": "635bf75b4e96275e9ddc01c7"
+            },
+            "__v": 0
+        },
+        {
+            "_id": "635c8d1c3d5d7101e62c04e4",
+            "name": "Iphoneee",
+            "description": "telefono",
+            "img": "url",
+            "price": 1500,
+            "uploader": {
+                "_id": "635bf75b4e96275e9ddc01c7"
+            },
+            "__v": 0
+        }
+    ]
+}
+```
+</details>
+
+---
+
+#### Actualizar un producto por el id
+> Este recurso permite eliminar un producto pasandole el id como referncia de que producto eliminar,**Solo podras usar esta ruta cuando tengas un token de admin** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  PUT /product/
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+###### Body Request
+```json
+Formato Json
+{
+	"name": "Celular"
+}
+```
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Producto actualizado",
+    "detalles": {
+        "_id": "635c8d1c3d5d7101e62c04e4",
+        "name": "Celular",
+        "description": "telefono",
+        "img": "URL",
+        "price": 1500,
+        "uploader": {
+            "_id": "635bf75b4e96275e9ddc01c7"
+        },
+        "__v": 0
+    }
+}
+```
+</details>
+
+---
+
+#### Eliminar un producto por id
+> Este recurso permite eliminar un producto pasandole el id como referncia de que producto eliminar,**Solo podras usar esta ruta cuando tengas un token de admin** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  DELETE /product/
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Producto eliminado",
+    "detalles": {
+        "_id": "635c150ac715677c436d6aa8",
+        "name": "Iphoneee",
+        "description": "telefono",
+        "img": "URL",
+        "price": 1500,
+        "uploader": "635bf75b4e96275e9ddc01c7",
         "__v": 0
     }
 }
