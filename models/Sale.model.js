@@ -20,6 +20,16 @@ const SaleSchema = new mongoose.Schema({
         },
       ],
     },
+    state:{
+        type:String,
+        enum:[
+            'solicitado',
+            'confirmado',
+            'enviado'
+        ],
+        default:'solicitado',
+        required:true,
+    }
   },
   {
     timestamps: true,
