@@ -897,7 +897,7 @@ Formato Json
 ---
 
 #### Actualizar el estado de la compra
-> Este recurso permite guardar una compra ,**Solo podras usar esta ruta cuando tengas un token de administrador** 
+> Este recurso permite actualizar el estado de la compra ,**Solo podras usar esta ruta cuando tengas un token de administrador** 
 <details>
   <summary>Ver información</summary>
 	
