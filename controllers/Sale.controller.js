@@ -42,7 +42,6 @@ const verVentas = async (req, res) => {
         select: {
           name: true,
           price: true,
-          uploader: true,
         }}); 
 
     if (!sales.length)
