@@ -77,13 +77,39 @@ const filtrarVentasUsuario = async (req, res) => {
     } catch (e) {
       return res.status(400).json({ mensaje: "Error", detalles: e.message });
     }
+  }
+
+
+  /**
+   * It takes the id of a product, and updates the state of that product to the value of the body of
+   * the request.
+  
+   */
+  const actualizarEstadoId = async (req, res) => {
+    if (req.user.type !== "admin") {
+      return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
+    }
+
+    try {
+      const { id } = req.params;
+  
+      const actualizado = await Product.findByIdAndUpdate(
+        id,
+        { $set:{state: req.body }},
+        { new: true }
+      );
+      return res
+        .status(200)
+        .json({ mensaje: "Estado de la venta actualizado", detalles: actualizado });
+    } catch (e) {
+      return res.status(400).json({ mensaje: "Error", detalles: e.message });
+    }
   };
-
-
 
 
 module.exports = {
   nuevaVenta,
   filtrarVentasUsuario,
   verVentas,
+  actualizarEstadoId
 };
