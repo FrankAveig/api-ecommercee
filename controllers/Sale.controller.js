@@ -80,10 +80,12 @@ const filtrarVentasUsuario = async (req, res) => {
   }
 
 
+
   /**
-   * It takes the id of a product, and updates the state of that product to the value of the body of
-   * the request.
-  
+   * It takes the id of the sale and the state of the sale from the body of the request and updates the
+   * state of the sale in the database.
+   * </code>
+
    */
   const actualizarEstadoId = async (req, res) => {
     if (req.user.type !== "admin") {
@@ -93,7 +95,7 @@ const filtrarVentasUsuario = async (req, res) => {
     try {
       const { id } = req.params;
   
-      const actualizado = await Product.findByIdAndUpdate(
+      const actualizado = await Sale.findByIdAndUpdate(
         id,
         { $set:{state: req.body }},
         { new: true }
