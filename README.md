@@ -8,7 +8,7 @@
 
 3.-[Documentación para uso de la API](#Documentacion-para-uso-de-la-api)
 
-4.-[Variables-de-entorno](#codigo)
+4.-[Documentación del código](#Documentación-del-código)
 
 ## Descripción
 Esta es una api desarrollada para ser utilizada en un e-commerce con una base de datos no relacional en especifico MongoDb, los modelos con los que cuenta la api para crear las colecciones son :
@@ -26,6 +26,11 @@ Si se desea hacer uso del codigo de la api, para su correcto funcionamiento se d
     npm install jsonwebtoken
     npm install express-jwt
     npm install mongoose-unique-validator
+    
+```
+Importante se debe agregar un archivo de variables de entorno.
+la descripcion de las variable está en el apartado  Documentación del codigo > codigo > .env 
+```
 
 ## Documentacion para uso de la API
 ### URL Base
