@@ -6,7 +6,7 @@
 
 2.-[Dependencias](#Dependencias)
 
-2.-[Documentación para uso de la api](#Documentacion-para-uso-de-la-api)
+2.-[Documentación para uso de la API](#Documentacion-para-uso-de-la-api)
 
 ## Descripción
 Esta es una api desarrollada para ser utilizada en un e-commerce con una base de datos no relacional en especifico MongoDb, los modelos con los que cuenta la api para crear las colecciones son :
@@ -25,7 +25,7 @@ Si se desea hacer uso del codigo de la api, para su correcto funcionamiento se d
     npm install express-jwt
     npm install mongoose-unique-validator
 
-## Documentacion para uso de la api
+## Documentacion para uso de la API
 ### URL Base
 `https://api-ecommercee.vercel.app/v1`
 
@@ -248,7 +248,7 @@ Formato Json
   Ejemplo /user/635cd92b96e01a1c9db455c1    
 ```
 
-###### Query Params
+######  Params
 | KEY  |VALUE   |
 | ------------ | ------------ |
 | | 635cd92b96e01a1c9db455c1    |
@@ -295,7 +295,7 @@ Formato Json
 | ------------ | ------------ |
 | Authorization| Bearer (token de administrador)  |
 
-###### Query Params
+######  Params
 | KEY  |VALUE   |
 | ------------ | ------------ |
 | | 635cd92b96e01a1c9db455c1    |
@@ -347,7 +347,7 @@ Formato Json
 | ------------ | ------------ |
 | Authorization| Bearer (token de administrador)  |
 
-###### Query Params
+######  Params
 | KEY  |VALUE   |
 | ------------ | ------------ |
 | | 635cd92b96e01a1c9db455c1    |
@@ -681,6 +681,276 @@ Formato Json
 <details>
 	
   <summary>Ver información</summary>
+  
+  ---
+  
+#### Crear una nueva compra
+> Este recurso permite guardar una compra ,**Solo podras usar esta ruta cuando tengas un token** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  POST /sale/
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token)  |
+
+###### Body Request
+```json
+Formato Json
+{
+	"total": 300,
+    "products":["635daa1293c3906e28f08a2e","635daa1293c3906e28f08a2e"]
+}
+```
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Venta creada",
+    "detalles": {
+        "total": 300,
+        "buyer": {
+            "_id": "635bf75b4e96275e9ddc01c7",
+            "name": "asd"
+        },
+        "products": [
+            {
+                "_id": "635daa1293c3906e28f08a2e",
+                "name": "Producto 1",
+                "price": 200
+            },
+            {
+                "_id": "635daa1293c3906e28f08a2e",
+                "name": "Producto 1",
+                "price": 200
+            }
+        ],
+        "state": "solicitado",
+        "_id": "635f55e3f68de0cca8099b7a",
+        "createdAt": "2022-10-31T04:58:11.893Z",
+        "updatedAt": "2022-10-31T04:58:11.893Z",
+        "__v": 0
+    }
+}
+
+```
+</details>
+
+---
+  
+#### Ver todas las compras
+> Este recurso permite visualizar todas las compras realizadas por todos los usuarios ,**Solo podras usar esta ruta cuando tengas un token de administrador** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  GET /sale/getAll
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Ventas encontradas",
+    "detalles": [
+        {
+            "_id": "635f55e3f68de0cca8099b7a",
+            "total": 300,
+            "buyer": {
+                "_id": "635bf75b4e96275e9ddc01c7",
+                "name": "asd"
+            },
+            "products": [
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                },
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                }
+            ],
+            "state": "solicitado",
+            "createdAt": "2022-10-31T04:58:11.893Z",
+            "updatedAt": "2022-10-31T04:58:11.893Z",
+            "__v": 0
+        },
+        {
+            "_id": "635f598e51ecc4923d2f224a",
+            "total": 300,
+            "buyer": {
+                "_id": "635bf75b4e96275e9ddc01c7",
+                "name": "asd"
+            },
+            "products": [
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                },
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                }
+            ],
+            "state": "solicitado",
+            "createdAt": "2022-10-31T04:58:11.893Z",
+            "updatedAt": "2022-10-31T04:58:11.893Z",
+            "__v": 0
+        }
+    ]
+}
+    
+```
+</details>
+
+---
+
+#### Ver las compras del usuario logeado
+> Este recurso permite visualizar todas las compras realizadas por todos los usuarios ,**Solo podras usar esta ruta cuando tengas un token** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  GET /sale/compras
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token )  |
+
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Comprsa encontradas",
+    "detalles": [
+        {
+            "_id": "635f55e3f68de0cca8099b7a",
+            "total": 300,
+            "buyer": "635bf75b4e96275e9ddc01c7",
+            "products": [
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                },
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                }
+            ],
+            "state": "solicitado",
+            "createdAt": "2022-10-31T04:58:11.893Z",
+            "updatedAt": "2022-10-31T04:58:11.893Z",
+            "__v": 0
+        },
+        {
+            "_id": "635f598e51ecc4923d2f224a",
+            "total": 300,
+            "buyer": "635bf75b4e96275e9ddc01c7",
+            "products": [
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                },
+                {
+                    "_id": "635daa1293c3906e28f08a2e",
+                    "name": "Producto 1",
+                    "price": 200
+                }
+            ],
+            "state": "solicitado",
+            "createdAt": "2022-10-31T04:58:11.893Z",
+            "updatedAt": "2022-10-31T04:58:11.893Z",
+            "__v": 0
+        }
+    ]
+}
+    
+```
+ 
+
+</details>
+
+---
+
+#### Actualizar el estado de la compra
+> Este recurso permite guardar una compra ,**Solo podras usar esta ruta cuando tengas un token de administrador** 
+<details>
+  <summary>Ver información</summary>
+	
+###### End point
+```http
+  POST /sale/estado/:id
+  Ejemplo  /sale/estado/635f55e3f68de0cca8099b7a
+```
+
+###### Header Request
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| Authorization| Bearer (token de administrador)  |
+
+
+###### Params
+| KEY  |VALUE   |
+| ------------ | ------------ |
+| | 635f55e3f68de0cca8099b7a   |
+
+###### Body Request
+```json
+Formato Json
+{
+	"state":"enviado"
+}
+```
+
+
+###### Response
+```javascript
+{
+    "mensaje": "Estado de la venta actualizado",
+    "detalles": {
+        "_id": "635f55e3f68de0cca8099b7a",
+        "total": 300,
+        "buyer": "635bf75b4e96275e9ddc01c7",
+        "products": [
+            "635daa1293c3906e28f08a2e",
+            "635daa1293c3906e28f08a2e"
+        ],
+        "state": "enviado",
+        "createdAt": "2022-10-31T04:58:11.893Z",
+        "updatedAt": "2022-10-31T07:35:35.424Z",
+        "__v": 0
+    }
+}
+
+```
+</details>
+
+---
 
 </details>
 	
+## Documentación del código 
