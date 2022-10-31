@@ -2016,7 +2016,7 @@ app.listen(process.env.PORT,()=>{
 
 <summary>:date: .env</summary>
 
-### .env
+# .env
  ```env
 
 URI_MONGO_SERVER='en esta variable ponemos la ruta de coneccion con la base de datos de mongoDB'
