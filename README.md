@@ -8,7 +8,7 @@
 
 3.-[Documentación para uso de la API](#Documentacion-para-uso-de-la-api)
 
-4.-[Env](#.env)
+4.-[Variables-de-entorno](#Variables-de-entorno)
 
 ## Descripción
 Esta es una api desarrollada para ser utilizada en un e-commerce con una base de datos no relacional en especifico MongoDb, los modelos con los que cuenta la api para crear las colecciones son :
@@ -2016,7 +2016,8 @@ app.listen(process.env.PORT,()=>{
 
 <summary>:date: .env</summary>
 
-#.env
+# Variables de entorno
+	
  ```env
 
 URI_MONGO_SERVER='en esta variable ponemos la ruta de coneccion con la base de datos de mongoDB'
