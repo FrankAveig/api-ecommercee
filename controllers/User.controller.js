@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 
- /* It creates a new user with the request body, hashes the password, and saves the user.*/
-/**
- * It takes the password from the request body, deletes it from the request body, creates a new user
- * with the request body, hashes the password, saves the user, and returns a response.
- */
+
 const registro = async (req,res) =>{
     try{
 
@@ -23,12 +19,7 @@ const registro = async (req,res) =>{
 
 }
 
-/**
- * a function that searches for a user with email
- * It takes the email and password from the request body, searches for a user with that email, if it
- * finds one, it checks if the password is correct, if it is, it returns a JWT token, if not, it
- * returns an error message.
- */
+
 const login = async(req,res)=>{
     try {
         const{mail,password} = req.body;
@@ -47,9 +38,7 @@ const login = async(req,res)=>{
     }
 };
 
-/**
- * It returns a list of users, but only if the user is an admin.
- */
+
 const verUsuarios = async (req, res) => {
     try {
       if (req.user.type !== "admin") {
@@ -72,9 +61,7 @@ const verUsuarios = async (req, res) => {
   };
 
 
-/**
- * It returns a user if the user is an admin and the user exists
- */
+
   const verUsuario = async (req, res) => {
     try {
       if (req.user.type !== "admin") {
@@ -90,10 +77,7 @@ const verUsuarios = async (req, res) => {
     }
   };
 
-/**
- * filtra el usuario dependiendo el parametro pasado por el body
 
- */
   const filtrarUsuarios = async (req, res) => {
     
     try {
@@ -109,9 +93,7 @@ const verUsuarios = async (req, res) => {
     }
   };
 
-/**
- * It deletes a user from the database by ID.
- */
+
   const eliminarUsuarioPorId = async (req, res) => {
     try {
         if (req.user.type !== "admin") {
@@ -129,11 +111,7 @@ const verUsuarios = async (req, res) => {
       return res.status(400).json({ mensaje: "Errorr", detalles: e.message });
     }
   };
-  
 
-/**
- * It deletes all users that match the filter in the request body
- */
   const eliminarUsuariosPorFiltro = async (req, res) => {
     try {
         if (req.user.type !== "admin") {
@@ -148,10 +126,7 @@ const verUsuarios = async (req, res) => {
     }
   };
   
-/**
- * It takes the id from the request params, and then updates the user with the id with the body of the
- * request.
- */
+
   const actualizarUsuario = async (req, res) => {
     try {
         if (req.user.type !== "admin") {
@@ -169,9 +144,7 @@ const verUsuarios = async (req, res) => {
     }
   };
 
- /**
-  * It returns the user's information
-  */
+
   const verInfoUsuario = async (req, res) => {
     try {
       const usuarioInfo = await User.findById(req.user.idUser, {name:1, mail:1,type:1,age:1, surename:1,img:1

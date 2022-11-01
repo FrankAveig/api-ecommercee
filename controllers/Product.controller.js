@@ -2,10 +2,6 @@
 const mongoose = require("mongoose");
 const Product = mongoose.model("Product");
 
-/**
- * "If the user is not an admin, return a 403 error. If the user is an admin, create a new product and
- * save it to the database."
- */
 const nuevoProducto = async (req, res) => {
     try {
       if (req.user.type !== "admin") {
@@ -25,9 +21,7 @@ const nuevoProducto = async (req, res) => {
   };
 
 
- /**
-  * It's a function that returns a promise that resolves to an array of products.
-  */
+
   const verProductos = async (req, res) => {
     try {
       const products = await Product.find().populate("uploader", "nombre");
@@ -40,10 +34,6 @@ const nuevoProducto = async (req, res) => {
   };
 
 
-/**
- * It returns a list of products created by the user who is logged in.
- * </code>
- */
   const verMisProductosCreados = async (req, res) => {
     try {
       if (req.user.type !== "admin") {
@@ -60,9 +50,6 @@ const nuevoProducto = async (req, res) => {
   };
 
 
-/**
- * It deletes a product from the database by its id.
- */
   const eliminarProductoPorId = async (req, res) => {
     try {
        if (req.user.type !== "admin") {
@@ -82,9 +69,6 @@ const nuevoProducto = async (req, res) => {
   };
 
 
-/**
- * It takes the id of a product, and updates the product with the new data.
- */
 const actualizarProductoPorId = async (req, res) => {
   try {
     const { id } = req.params;

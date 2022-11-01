@@ -15,7 +15,7 @@ const {
 
 
 router.post("/", auth, nuevaVenta);
-router.post('/estado/:id',auth,actualizarEstadoId)
+router.put('/estado/:id',auth,actualizarEstadoId)
 router.get("/getAll", auth, verVentas);
 router.get("/compras", auth, filtrarVentasUsuario,);
 
