@@ -1,4 +1,4 @@
-[![Dise-o-sin-t-tulo.gif](https://i.postimg.cc/PfgykKFY/Dise-o-sin-t-tulo.gif)](https://postimg.cc/NLxm68tj)
+![Dise-o-sin-t-tulo.gif](https://i.postimg.cc/PfgykKFY/Dise-o-sin-t-tulo.gif)
 # Api-ecoommerce-ucamp
 
 **TABLA DE CONTENIDO**
