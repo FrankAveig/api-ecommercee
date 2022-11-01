@@ -973,8 +973,8 @@ Formato Json
  </details>
  
  ### **Codigo**
-<details>
-<summary>Ver información</summary>
+
+
 
 ###
 
@@ -992,6 +992,12 @@ Formato Json
 <summary> >  :spiral_notepad: index.js</summary>
 
  ###
+	
+```	
+En este archivo importamos y exportamos todas las funciones de los archivos model.js, el motivo es para cuando tengamos que hacer uso
+de ellas no tengamos que importarlas desde los diferentes archivos, en lugar de eso las tendremos todas disponibles 
+desde un solo archivo	
+```	
 
 ```javascript
 const User = require("./User.model");
@@ -1013,19 +1019,27 @@ module.exports = {
  <summary> >  :spiral_notepad: User.model.js </summary>
  
   ###
+	
+```	
+En este archivo crearemos el modelo de los usuarios, es decir que propiedades tendran en la base de datos de mongoDB.
+Tambien designaremos el nombrede la colección
+	
+```		
   
 ```javascript
 
-const mongoose = require('mongoose');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');  // Importamos la librería  mongoose ya que la estaremos usando para crear el modelo 
+const crypto = require('crypto');      // Importamos la librería cryto la cual se utilizara para encriptar la contraseña
+const jwt = require('jsonwebtoken');   // Importamoos la librería de jsonwebtoken la cual la utilizaremos para generar los tokens de logeo 	 
+const uniqueValidator = require('mongoose-unique-validator'); // Hacemos uso de esta librería para asegurarnos que ciertos valores como el correo sean únicos
 
+
+// Creamos el modelo y designamos el tipo , si son obligatorias , unicas y demas requerimiento que tendran cada una de las propiedades
 const UserSchema = new mongoose.Schema({
     name:{
-        type:String,
-        required:true,
-    },
+        type:String,	//Designamos que este campo sera un String
+        required:true,	//Designamos que este campo es obligatorio
+    },	
     surname:{
         type:String,
         required: true,
@@ -1033,8 +1047,10 @@ const UserSchema = new mongoose.Schema({
     mail:{
         type: String,
         required:true,
-        unique: true,
-        match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'email invalido'],
+        unique: true, //Designamos que este campo no se puede repetir en otro documento
+	
+	// Designamos a través de una expresión regular que debe ser un email válido
+        match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'email invalido'], 
     },
     city:{
         type:String,
@@ -1045,7 +1061,8 @@ const UserSchema = new mongoose.Schema({
     },
     type:{
         type:String,
-        enum:[
+	//A través de enum validamos que los valores ingresados sean los que designamos en el array del mismo  
+        enum:[           
             'customer',
             'admin'
         ],
@@ -1065,34 +1082,44 @@ const UserSchema = new mongoose.Schema({
     }
 })
 
-/* A plugin that validates the uniqueness of a field. */
+
+
+// Usamos el plugin de uniqueValidator para por utilizar la propiedad unique dentro del esquema 
 UserSchema.plugin(uniqueValidator)
 
 /* Encrypting the password. */
+	
+// Creamos un metodo el cual nos realizara la encriptacion de la contraseña 
+	
 UserSchema.methods.encryptString = function(stringToEncript,salt){
     return crypto.pbkdf2Sync(stringToEncript,salt,10000,5,'sha512').toString('hex');
 }
 
-
+/* Creamos un metodo el cual generara un string aleatorio de 16 caracteres el cual se lo asignaremos a la propiedad salt
+de nuestro esquema para luego utilizar dentro de este metodo el metodo de empritación de la contraseña el cual 
+requiere el salt ya generado y la contraseña sin encriptar */
+	
 UserSchema.methods.hashPassword = function(password){
-  /* Generating a random string of 16 characters. */
-    this.salt = crypto.randomBytes(16).toString('hex');
-    /* Assigning the value of the function `encryptString` to the property `password` of the object
-    `this`. */
-    this.password = this.encryptString(password,this.salt)
+    this.salt = crypto.randomBytes(16).toString('hex'); // Esta es la parte que genera un string aleatorio y se lo asigna a la prop salt
+    this.password = this.encryptString(password,this.salt) // Aquí hacemos uso del método que creamos anteriormente para encriptar la contraseña
 }
 
-/* Verifying the password. */
+/* Con este metodo verificamos si la contraseña ingresada es la misma que la contraseña que guardamos anteriormente
+la forma en que lo realizamos es encriptar la contraseña nueva con los mismos parametros y la comparamos con la ya 
+guardada*/
+	
 UserSchema.methods.verifyPassword = function(password){
     return this.encryptString(password,this.salt) === this.password;
 }
 
-/* Generating a token. */
+/*Este metodo nos genera un token a partir del idUser,y type para esto usamos la funcion de la libreia
+	jsonwebtoken. */
 UserSchema.methods.generateJWT = function(){
     return jwt.sign({idUser: this._id,type:this.type},process.env.SECRET)
 }
 
-/* Creating a token. */
+	
+/* Este metodo nos devuelve el id del usuario el type y ademas el token necesario para autenticarnos*/
 UserSchema.methods.onSingGenerateJWT = function(){
     return{
         idUser: this._id,
@@ -1101,7 +1128,7 @@ UserSchema.methods.onSingGenerateJWT = function(){
     }
 }
 
-/* Creating a model called `User` with the schema `UserSchema` and the collection `collectionUser`. */
+/* Con esta linea creamos el modelo llamado User con el squema UserSchema y que este en la collecion CollectionUser */
 mongoose.model('User',UserSchema,'collectionUser')
 
 
@@ -1118,9 +1145,16 @@ mongoose.model('User',UserSchema,'collectionUser')
  
  ###
 
+```	
+En este archivo crearemos el modelo de los usuarios, es decir que propiedades tendran en la base de datos de mongoDB.
+Tambien designaremos el nombrede la colección
+	
+```		
+	
 ```javascript
-const mongoose = require('mongoose')
+const mongoose = require('mongoose') // Importamos mongoose para crear los modelos 
 
+// Creamos el modelo y designamos el tipo , si son obligatorias , unicas y demas requerimiento que tendran cada una de las propiedades
 const ProductSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -1217,8 +1251,16 @@ mongoose.model('Sale',SaleSchema,'collectionnSales');
 <summary> >  :spiral_notepad: index.js</summary>
 
  ###
-
+	
+```	
+En este archivo importamos todas las funciones de los archivos cotrollers.js, el motivo es para cuando tengamos que hacer uso
+de ellas no tengamos que importarlas desde los diferentes archivos, en lugar de eso las tendremos todas disponibles 
+desde un solo archivo	
+```
+	
+	
 ```javascript
+
 const {
     registro,
     verUsuarios,
@@ -1813,27 +1855,39 @@ module.exports = auth;
 
 <details>
 <summary> > :spiral_notepad: index.js </summary>
+	
 ###
+	
+```	
+En este archivo realizamos el enrrutamiento de las diferentes partes de nuestra api que en este caso son /user , /product, /sale  
 
+```
+	
+	
  ```javascript
 
-const express = require("express");
-const router = express.Router();
-const userRouter = require("./User.routes");
-const productRouter = require("./Proucts.routes");
-const saleRouter = require("./Sales.routes");
+const express = require("express");     // importamos express
+const router = express.Router();	// hacemos uso de la funcion express.Router para realizar el enrrutamiento
+const userRouter = require("./User.routes"); // Importamos nuestras rutas User
+const productRouter = require("./Proucts.routes"); // Importamos nuestras rutas User
+const saleRouter = require("./Sales.routes");  // Importamos nuestras rutas User
 
-
-router.get("/", (req, res) => {
+	
+	
+// Aqui definimos lo que ira en nuestra ruta principal o ruta base 
+router.get("/", (req, res) => {       
   res.send(`
     <h1>Welcome to API!</h1>
     `);
 });
 
-router.use("/user", userRouter);
+// Realizamos el enrutamiento de las rutas, asi evitamos excribir manualmente /user o /productos o /sale en cada uno de las sub rutas	
+	
+router.use("/user", userRouter);  
 router.use("/product", productRouter);
 router.use("/sale", saleRouter);
 
+// Realizamos la exportacioon de todas las rutas 
 module.exports = router;
 
 
@@ -2033,7 +2087,7 @@ PORT = En esta varialble ponemos el puerto en el cual la express va a correr de 
 
 </details>
  
-</details>
+
  
   
   
