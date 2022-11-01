@@ -21,6 +21,7 @@ const {
     nuevaVenta,
     verVentas,
     filtrarVentasUsuario,
+    actualizarEstadoId
   } = require('./Sale.controller')
   module.exports = {
     registro,
@@ -40,4 +41,5 @@ const {
     nuevaVenta,
     verVentas,
     filtrarVentasUsuario,
+    actualizarEstadoId
   };
