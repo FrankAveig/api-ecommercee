@@ -18,4 +18,4 @@ router.get("/misPeliculas", auth, verMisProductosCreados);
 router.delete("/:id", auth, eliminarProductoPorId);
 router.put("/:id", auth, actualizarProductoPorId);
 
-module.exports = router;
+module.exports = router;          
