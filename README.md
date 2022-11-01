@@ -1035,6 +1035,7 @@ const uniqueValidator = require('mongoose-unique-validator'); // Hacemos uso de 
 
 
 // Creamos el modelo y designamos el tipo , si son obligatorias , unicas y demas requerimiento que tendran cada una de las propiedades
+
 const UserSchema = new mongoose.Schema({
     name:{
         type:String,	//Designamos que este campo sera un String
@@ -1155,6 +1156,7 @@ Tambien designaremos el nombrede la colección
 const mongoose = require('mongoose') // Importamos mongoose para crear los modelos 
 
 // Creamos el modelo y designamos el tipo , si son obligatorias , unicas y demas requerimiento que tendran cada una de las propiedades
+
 const ProductSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -1191,9 +1193,18 @@ mongoose.model('Product', ProductSchema, "collectionProduct");
  <summary> >  :spiral_notepad: Sale.model.js </summary>
  
  ###
+ 
+```	
+En este archivo crearemos el modelo de los usuarios, es decir que propiedades tendran en la base de datos de mongoDB.
+Tambien designaremos el nombrede la colección
+
+```
+ 
  ```javascript
 
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // Importamos mongoose para crear los modelos 
+
+// Creamos el modelo y designamos el tipo , si son obligatorias , unicas y demas requerimiento que tendran cada una de las propiedades
 
 
 const SaleSchema = new mongoose.Schema({
@@ -1318,50 +1329,55 @@ const {
  <summary> >  :spiral_notepad: User.controlleer.js </summary>
  
   ###
+
+```
+En este documento se encuentran todas las funciones que utilizaremos para manipular nuestra base de datos 
+con respecto al usuario
+
+```  
   
 ```javascript
 
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const mongoose = require('mongoose'); // importamos mongoose
+const User = mongoose.model('User'); // importamos el modelo User
 
 
- /* It creates a new user with the request body, hashes the password, and saves the user.*/
-/**
- * It takes the password from the request body, deletes it from the request body, creates a new user
- * with the request body, hashes the password, saves the user, and returns a response.
- */
+ /* Crea un nuevo usuario con la información que recibe del body encripta la contraseña y guarda la toda la informacion
+ en nuestra base de datos*/
+ 
 const registro = async (req,res) =>{
     try{
 
-        const{password} = req.body;
-        delete req.body.password;
-        const user = new User(req.body)
-        user.hashPassword(password);
-        await user.save();
+        const{password} = req.body; // guardamos la contraseña que tomamos del body en una variable
+        delete req.body.password;   // eliminamos la contraseñ del body por seguridad
+        const user = new User(req.body) // Creamos un nuevo usuario con la información que viene del body
+        user.hashPassword(password);  // Encriptamos la contraseña y se la asignamos al user
+        await user.save(); // Guardamos el usuario
         
-        return res.status(201).json({mensaje:'Usuario Creado',detalles: user.onSingGenerateJWT()})
+        return res.status(201).json({mensaje:'Usuario Creado',detalles: user.onSingGenerateJWT()}) // si no hubo errores en el proceso retorna un token
+												   // con el id y el tipo de usuario
     }catch(e){
         return res.status(400).json({ mensaje: "Error", detalles: e.message });
     }
 
 }
 
-/**
- * a function that searches for a user with email
- * It takes the email and password from the request body, searches for a user with that email, if it
- * finds one, it checks if the password is correct, if it is, it returns a JWT token, if not, it
- * returns an error message.
+/*
+Con esta funcion buscaremos a un usuario a través del e-mail que recibimos del body, luego si este existe 
+encriptamos la contraseña que recibimos por el body y validamos que sea la misma que el usuario que se encontro
+a través del e mail, si todo es correcto retorna un token con el id y el tipo de usuario caso contrario
+retorna un mensaje de error
  */
 const login = async(req,res)=>{
     try {
         const{mail,password} = req.body;
-        const user = await User.findOne({mail});
+        const user = await User.findOne({mail});  // busca el usuario a través del mail
 
         if(!user){
             return res.status(400).json({mensaje:'error',detalles:'Usuario no encontrado'});
         }
-        if(user.verifyPassword(password)){
-            return res.status(200).json({mensaje:'Login correcto', detalles: user.generateJWT()})
+        if(user.verifyPassword(password)){  // verifica que la contraseña sea la misma dle usuario encontrado
+            return res.status(200).json({mensaje:'Login correcto', detalles: user.generateJWT()}) // retorna el token de autorización
         }
 
         return res.status(400).json({mensaje: 'Error', detalles:'Contraseña incorrecta'});
@@ -1370,15 +1386,16 @@ const login = async(req,res)=>{
     }
 };
 
-/**
- * It returns a list of users, but only if the user is an admin.
+/*
+ Retorna la lista de todos los usuarios pero esta funcion solo se puede usar si su usuario es de tipo
+ administrador 
  */
 const verUsuarios = async (req, res) => {
     try {
-      if (req.user.type !== "admin") {
+      if (req.user.type !== "admin") {  // validación que el usuario sea tipo administrador
         return res.status(400).json({mensaje: "Error",detalles: "No tienes permiso para ver esto",});
       }
-      const usuarios = await User.find({},{
+      const usuarios = await User.find({},{  // busqueda de todos los usuarios con los parametros que se quieren mostrar
         name: true,
         surename: true,
         mail: true,
@@ -1386,7 +1403,7 @@ const verUsuarios = async (req, res) => {
         type: true,
         img: true,
       });
-      if (!usuarios.length)
+      if (!usuarios.length) // validación que la colección no este vacía 
         return res.status(404).json({ mensaje: "Error", detalles: "Colección vacía" });
       return res.status(200).json({ mensaje: "Usuarios encontrados", detalles: usuarios });
     } catch (e) {
@@ -1395,16 +1412,17 @@ const verUsuarios = async (req, res) => {
   };
 
 
-/**
- * It returns a user if the user is an admin and the user exists
+/*
+ Retorna los datos de un usuario en especifico buscado por el id pasado a través del ID
+ esta funcion valida que el usuario sea administrador 
  */
   const verUsuario = async (req, res) => {
     try {
-      if (req.user.type !== "admin") {
+      if (req.user.type !== "admin") { // valida si el usuario es administrador 
         return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
       }
       console.log(req.query)
-      const usuario = await User.findById(req.params.id);
+      const usuario = await User.findById(req.params.id); // busca al usuario por el id 
       if (!usuario)
         return res.status(404).json({ mensaje: "Error", detalles: "No existe este usuario" });
       return res.status(200).json({ mensaje: "Usuario encontrado", detalles: usuario });
@@ -1413,17 +1431,16 @@ const verUsuarios = async (req, res) => {
     }
   };
 
-/**
- * filtra el usuario dependiendo el parametro pasado por el body
-
- */
+/*
+Filtra el usuario dependiendo el parametro pasado por el body, también valida si el usuario es aministrador
+*/
   const filtrarUsuarios = async (req, res) => {
     
     try {
-        if (req.user.type !== "admin") {
+        if (req.user.type !== "admin") { // valida si el usuario es administrador
             return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
           }
-      const usuarios = await User.find(req.body);
+      const usuarios = await User.find(req.body); // busca a un usuario según los parametros pasados por el body
       if (!usuarios.length)
         return res.status(404).json({ mensaje: "Error", detalles: "Usuarios no encontrados" });
       return res.status(200).json({ mensaje: "Usuarios encontrados", detalles: usuarios });
@@ -1432,21 +1449,22 @@ const verUsuarios = async (req, res) => {
     }
   };
 
-/**
- * It deletes a user from the database by ID.
- */
+
+/*
+Elimina a un usuario de la base de datos a través del ID, verifica que seamos usuarios para poder relizar la consulta.
+*/
   const eliminarUsuarioPorId = async (req, res) => {
     try {
-        if (req.user.type !== "admin") {
+        if (req.user.type !== "admin") { // verifica que el usuario se administrador
             return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
           }
-      const  id  = req.params.id;
-      if (id.length !== 24)
+      const  id  = req.params.id;  // guarda el id en una variable del misimo nombre
+      if (id.length !== 24) // certifica que el id sea de 24 caracteres que es el formato que se esta usando
         return res.status(400).json({ mensaje: "Error", detalles: "ID no válido" });
-      const usuario = await User.findById(id);
-      if (!usuario)
+      const usuario = await User.findById(id); // encuentra el usuario a través del id
+      if (!usuario)// valida que el usuario exista 
         return res.status(404).json({ mensaje: "Error", detalles: "Usuario no encontrado" });
-      const eliminado = await User.findByIdAndDelete(id);
+      const eliminado = await User.findByIdAndDelete(id); // elimina al usuario a través del id
       return res.status(200).json({ mensaje: "Usuario eliminado", detalles: eliminado });
     } catch (e) {
       return res.status(400).json({ mensaje: "Errorr", detalles: e.message });
@@ -1454,15 +1472,16 @@ const verUsuarios = async (req, res) => {
   };
   
 
-/**
- * It deletes all users that match the filter in the request body
- */
+/*
+ Elimina a todos los usuarios que tengan las propiedades pasadas por el body, verifica que el usuario
+ sea tipo administrador
+*/
   const eliminarUsuariosPorFiltro = async (req, res) => {
     try {
-        if (req.user.type !== "admin") {
+        if (req.user.type !== "admin") { // verifica que el usuario sea administrador 
             return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
           }
-      const eliminados = await User.deleteMany(req.body);
+      const eliminados = await User.deleteMany(req.body); // elimina a todos los usuarios que hagan match con los parametros pasados por el body
       return res
         .status(200)
         .json({ mensaje: "Usuarios eliminados", detalles: eliminados });
@@ -1471,17 +1490,17 @@ const verUsuarios = async (req, res) => {
     }
   };
   
-/**
- * It takes the id from the request params, and then updates the user with the id with the body of the
- * request.
- */
+/*
+Actualiza los datos de un usuario encontrado a través del Id, los datos modificados seran los pasados por el body
+verifica que el usuario sea de tipo administrador 
+*/
   const actualizarUsuario = async (req, res) => {
     try {
-        if (req.user.type !== "admin") {
+        if (req.user.type !== "admin") { // valida que el usuario sea tipo administrador
             return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
           }
-      const { id } = req.params;
-      const actualizado = await User.findByIdAndUpdate(
+      const { id } = req.params; // guarda el id en una variable del mismo nombre
+      const actualizado = await User.findByIdAndUpdate(   //busca al usuario por el id y actualiza los datos pasados por el body
         id,
         { $set: req.body },
         { new: true }
@@ -1492,9 +1511,9 @@ const verUsuarios = async (req, res) => {
     }
   };
 
- /**
-  * It returns the user's information
-  */
+/*
+Retorna los datos del usuario que se encuentra logeado 
+*/
   const verInfoUsuario = async (req, res) => {
     try {
       const usuarioInfo = await User.findById(req.user.idUser, {name:1, mail:1,type:1,age:1, surename:1,img:1
@@ -1529,27 +1548,34 @@ const verUsuarios = async (req, res) => {
 
  <summary> >  :spiral_notepad: Product.controller.js </summary>
  
+ ```
+En este documento se encuentran todas las funciones que utilizaremos para manipular nuestra base de datos 
+con respecto al producto
+
+```  
+ 
  ###
 
 ```javascript
 
-const mongoose = require("mongoose");
-const Product = mongoose.model("Product");
+const mongoose = require("mongoose"); // importa mongoose
+const Product = mongoose.model("Product"); // importa el modelo Product
 
-/**
- * "If the user is not an admin, return a 403 error. If the user is an admin, create a new product and
- * save it to the database."
- */
+/*
+Con esta función creamos un nuevo producto, tambien valida que solo un usuario tipo administrador pueda
+realizr esta accion, las propiedades del producto se reciben por el body
+*/
 const nuevoProducto = async (req, res) => {
     try {
-      if (req.user.type !== "admin") {
+      if (req.user.type !== "admin") { //valida que el usuario sea de tipo administrador
         return res.status(403).json({  mensaje: "Error",detalles: "Sólo un admin puede crear un nuevo producto",
           });
       }
       
-      const producto = new Product({...req.body, uploader: req.user.idUser});
+      const producto = new Product({...req.body, uploader: req.user.idUser});  // crea un producto con los datos pasados por el body y 
+										// el uploader toma los datos del mismo usuario 
   
-      const resp = await producto.save();
+      const resp = await producto.save(); // guarda el producto
   
       return res.status(201).json({mensaje: "Producto creado",detalles: await resp.populate("uploader", "name",),
       });
@@ -1559,9 +1585,9 @@ const nuevoProducto = async (req, res) => {
   };
 
 
- /**
-  * It's a function that returns a promise that resolves to an array of products.
-  */
+ /*
+  Esta función retorna todos los producto existentes
+ */
   const verProductos = async (req, res) => {
     try {
       const products = await Product.find().populate("uploader", "nombre");
@@ -1574,10 +1600,9 @@ const nuevoProducto = async (req, res) => {
   };
 
 
-/**
- * It returns a list of products created by the user who is logged in.
- * </code>
- */
+/*
+Retorna todos los productos creados por el usuario que se encuentra logeado
+*/
   const verMisProductosCreados = async (req, res) => {
     try {
       if (req.user.type !== "admin") {
@@ -1594,18 +1619,18 @@ const nuevoProducto = async (req, res) => {
   };
 
 
-/**
- * It deletes a product from the database by its id.
- */
+/*
+Elimina un producto a través de su id, tambien valida que el usuario sea de tipo administrador
+*/
   const eliminarProductoPorId = async (req, res) => {
     try {
-       if (req.user.type !== "admin") {
+       if (req.user.type !== "admin") { //valida que el usuario se admin
             return res.status(400).json({mensaje: "Error",detalles: "No tienes permiso para ver esto",});
         }
-      const { id } = req.params;
-      if (id.length !== 24)
+      const { id } = req.params; 
+      if (id.length !== 24) // valida que el id tenga el formato correcto es decir 24 caraceres en este caso
         return res.status(400).json({ mensaje: "Error", detalles: "ID no válido" });
-      const products = await Product.findById(id);
+      const products = await Product.findById(id);// busca el producto
       if (!products)
         return res.status(404).json({ mensaje: "Error", detalles: "Producto no encontrado" });
       const eliminado = await Product.findByIdAndDelete(id);
@@ -1616,16 +1641,16 @@ const nuevoProducto = async (req, res) => {
   };
 
 
-/**
- * It takes the id of a product, and updates the product with the new data.
- */
+/*
+Actualiza un producto a encontrandolo por el id pasado por parametro y actualiza sus propiedades dependiendo lo que se le pase por el body 
+*/
 const actualizarProductoPorId = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params; // guarda el id en una variable del mismo nombre
 
-    const actualizado = await Product.findByIdAndUpdate(
+    const actualizado = await Product.findByIdAndUpdate( // encuentra y actualiza al producto
       id,
-      { $set: req.body },
+      { $set: req.body }, // datos que serán actualizado
       { new: true }
     ).populate("uploader", "nombre");
     return res
@@ -1654,23 +1679,27 @@ module.exports = {
  <summary> >  :spiral_notepad: Sale.model.js </summary>
  
  ###
- ```javascript
+ 
+```
+En este documento se encuentran todas las funciones que utilizaremos para manipular nuestra base de datos 
+con respecto al modelo Sale
 
-const mongoose = require("mongoose");
-const Sale = mongoose.model("Sale");
+``` 
+
+```javascript
+
+const mongoose = require("mongoose"); // importamos mongoose
+const Sale = mongoose.model("Sale");// importamos el modelo Sale
 
 
-/**
- * It creates a new sale, populates the products and buyer fields, and returns the populated sale.
- */
+/*
+crea una nueva venta con datos pasados pasados por el body y el buyer sera el usuario logeado
+*/
 const nuevaVenta = async (req, res) => {
   try {
-    if (req.user.type !== "admin") {
-        return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
-      }
-    const sales = new Sale({ ...req.body, buyer: req.user.idUser });
+    const sales = new Sale({ ...req.body, buyer: req.user.idUser });// creando el modelo con los datos
 
-    const resp = await sales.save();
+    const resp = await sales.save(); // guardando el modelo creado en la base de datos
 
     return res.status(201).json({
       mensaje: "Venta creada",
@@ -1682,11 +1711,9 @@ const nuevaVenta = async (req, res) => {
 };
 
 
-/**
- * It returns all the sales in the database, with the buyer's name, the product's name, price and the
- * uploader's name.
- * </code>
-
+/*
+Esta funcion retorna todas las ventas que existen en la colección, con los productos comprados y el usuario que realizo la compra
+tambien verifica que el usuario sea tipo administrador
  */
 const verVentas = async (req, res) => {
   try {
@@ -1715,10 +1742,9 @@ const verVentas = async (req, res) => {
 };
 
 
-/**
- * It returns all the sales of a user, and the products that were sold in each sale.
- * </code>
- */
+/*
+Retorna todas las compras realizadas por el usuario que se encuentra logeado
+*/
 const filtrarVentasUsuario = async (req, res) => {
     
     try {
@@ -1739,12 +1765,10 @@ const filtrarVentasUsuario = async (req, res) => {
 
 
 
-  /**
-   * It takes the id of the sale and the state of the sale from the body of the request and updates the
-   * state of the sale in the database.
-   * </code>
-
-   */
+/*
+Esta función actualiza el estado de una venta, los cuales pueden ser (solicitado,confirmado o enviado)
+esta funcion verifica que el usuario sea administrador ya que solo le es util al mismo
+*/
   const actualizarEstadoId = async (req, res) => {
     if (req.user.type !== "admin") {
       return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
@@ -1805,14 +1829,18 @@ module.exports = {
  
  ###
  
+ ```
+En este archivo se encuentran las reglas de nuestra apo
+```
+ 
  ```javascript
 
 const { expressjwt: jwt } = require("express-jwt");
 
-/**
- * If the authorization header is present, split it into an array of two elements, the first being the
- * type of authorization and the second being the token. If the type is Bearer or Token, return the
- * token. Otherwise, return null.
+/*
+Esta función primero valida que exista un token de autorizacion pasado en el header si no es asi retorna null, luego divide el token en dos partes
+primero en el tipo de autorizacion y luego en el token
+
  */
 const getToken = (req) => {
   const { authorization } = req.headers;
@@ -1826,9 +1854,9 @@ const getToken = (req) => {
   return type === "Bearer" || type === "Token" ? token : null;
 };
 
-/* Using the express-jwt library to create a middleware function that will be used to authenticate the user. */
+/* Esta función hace uso de la biblioteca express-jwt para crear una función de middleware que se usará para autenticar al usuario. */
 const auth = jwt({
-  secret: process.env.SECRET,
+  secret: processu.env.SECRET,
   algorithms: ["HS256"],
   requestProperty: "user",
   getToken,
@@ -1997,8 +2025,8 @@ module.exports = router;
  ```javascript
 
 
-const express = require("express");
-const auth = require("../middleware/auth");
+const express = require("express"); 
+const auth = require("../middleware/auth"); 
 
 
 const router = express.Router();
@@ -2012,9 +2040,14 @@ const {
 } = require("../controllers");
 
 
+//rutas
+//crea una nueva venta
 router.post("/", auth, nuevaVenta);
-router.post('/estado/:id',auth,actualizarEstadoId)
+//actualiza el estado de una venta
+router.put('/estado/:id',auth,actualizarEstadoId)
+// obtiene todas las ventas
 router.get("/getAll", auth, verVentas);
+// obtiene las compras hechas por el usuario
 router.get("/compras", auth, filtrarVentasUsuario,);
 
 
