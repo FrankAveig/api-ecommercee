@@ -1,4 +1,5 @@
-![Dise-o-sin-t-tulo.gif](https://i.postimg.cc/PfgykKFY/Dise-o-sin-t-tulo.gif)
+![Dise-o-sin-t-tulo.gif](https://i.postimg.cc/g03dNg5s/Dise-o-sin-t-tulo.gif)
+
 # Api-ecoommerce-ucamp
 
 **TABLA DE CONTENIDO**
@@ -2107,7 +2108,7 @@ app.listen(process.env.PORT,()=>{
 
 <details>
 
-<summary>:date: .env</summary>
+<summary>:page_facing_up: .env</summary>
 
 # Variables de entorno
 	
