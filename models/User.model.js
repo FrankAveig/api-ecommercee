@@ -47,34 +47,26 @@ const UserSchema = new mongoose.Schema({
     }
 })
 
-/* A plugin that validates the uniqueness of a field. */
 UserSchema.plugin(uniqueValidator)
 
-/* Encrypting the password. */
 UserSchema.methods.encryptString = function(stringToEncript,salt){
     return crypto.pbkdf2Sync(stringToEncript,salt,10000,5,'sha512').toString('hex');
 }
 
 
 UserSchema.methods.hashPassword = function(password){
-  /* Generating a random string of 16 characters. */
     this.salt = crypto.randomBytes(16).toString('hex');
-    /* Assigning the value of the function `encryptString` to the property `password` of the object
-    `this`. */
     this.password = this.encryptString(password,this.salt)
 }
 
-/* Verifying the password. */
 UserSchema.methods.verifyPassword = function(password){
     return this.encryptString(password,this.salt) === this.password;
 }
 
-/* Generating a token. */
 UserSchema.methods.generateJWT = function(){
     return jwt.sign({idUser: this._id,type:this.type},process.env.SECRET)
 }
 
-/* Creating a token. */
 UserSchema.methods.onSingGenerateJWT = function(){
     return{
         idUser: this._id,
@@ -83,7 +75,6 @@ UserSchema.methods.onSingGenerateJWT = function(){
     }
 }
 
-/* Creating a model called `User` with the schema `UserSchema` and the collection `collectionUser`. */
 mongoose.model('User',UserSchema,'collectionUser')
 
 
