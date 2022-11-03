@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 const Sale = mongoose.model("Sale");
 
 
-/**
- * It creates a new sale, populates the products and buyer fields, and returns the populated sale.
- */
 const nuevaVenta = async (req, res) => {
   try {
     if (req.user.type !== "admin") {
@@ -24,12 +21,6 @@ const nuevaVenta = async (req, res) => {
 };
 
 
-/**
- * It returns all the sales in the database, with the buyer's name, the product's name, price and the
- * uploader's name.
- * </code>
-
- */
 const verVentas = async (req, res) => {
   try {
     if (req.user.type !== "admin") {
@@ -56,11 +47,6 @@ const verVentas = async (req, res) => {
   }
 };
 
-
-/**
- * It returns all the sales of a user, and the products that were sold in each sale.
- * </code>
- */
 const filtrarVentasUsuario = async (req, res) => {
     
     try {
@@ -80,13 +66,6 @@ const filtrarVentasUsuario = async (req, res) => {
   }
 
 
-
-  /**
-   * It takes the id of the sale and the state of the sale from the body of the request and updates the
-   * state of the sale in the database.
-   * </code>
-
-   */
   const actualizarEstadoId = async (req, res) => {
     if (req.user.type !== "admin") {
       return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});

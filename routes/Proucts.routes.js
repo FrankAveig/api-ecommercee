@@ -11,7 +11,7 @@ const {
 
 
 router.post("/", auth, nuevoProducto);
-router.get("/getAll", auth, verProductos);
+router.get("/getAll", verProductos);
 router.get("/misPeliculas", auth, verMisProductosCreados);
 router.put("/:id", auth, actualizarProductoPorId);
 router.delete("/:id", auth, eliminarProductoPorId);
