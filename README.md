@@ -490,7 +490,7 @@ Formato Json
 ---
 
 #### Ver todos los productos creados
-> Este recurso permite visualizar todos los productos que han sido creados,**Solo podras usar esta ruta cuando tengas un token de admin** 
+> Este recurso permite visualizar todos los productos que han sido creados
 <details>
   <summary>Ver información</summary>
 	
@@ -499,10 +499,7 @@ Formato Json
   GET /product/getAll
 ```
 
-###### Header Request
-| KEY  |VALUE   |
-| ------------ | ------------ |
-| Authorization| Bearer (token de administrador)  |
+
 
 
 
