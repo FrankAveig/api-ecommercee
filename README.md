@@ -167,7 +167,7 @@ Formato Json
 
 ###### End point
 ```http
-  -POST /user/
+  -GET /user/
 ```
 
 
