@@ -29,7 +29,7 @@ const login = async(req,res)=>{
             return res.status(400).json({mensaje:'error',detalles:'Usuario no encontrado'});
         }
         if(user.verifyPassword(password)){
-            return res.status(200).json({mensaje:'Login correcto', detalles: user.onSingGenerateJWT})
+            return res.status(200).json({mensaje:'Login correcto', detalles: user.onSingGenerateJWT()})
         }
 
         return res.status(400).json({mensaje: 'Error', detalles:'Contraseña incorrecta'});
