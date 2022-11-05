@@ -38,7 +38,7 @@ const nuevoProducto = async (req, res) => {
       const product = await Product.find(req.body)
       if(!product.length)
         return res.status(404).json({ mensaje: "Error", detalles: "Colección vacía" });
-        return res.status(200).json({ mensaje: "Producto encontrados", detalles: products });
+        return res.status(200).json({ mensaje: "Producto encontrados", detalles: product });
 
     }catch(e){
       return res.status(400).json({ mensaje: "Error", detalles: e.message });
