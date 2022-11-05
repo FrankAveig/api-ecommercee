@@ -559,7 +559,7 @@ Formato Json
 	
 ###### End point
 ```http
-  GET /product/misPeliculas
+  GET /product/misProductos
 ```
 
 ###### Header Request
