@@ -34,7 +34,7 @@ const login = async(req,res)=>{
 
         return res.status(400).json({mensaje: 'Error', detalles:'Contraseña incorrecta'});
     } catch (e) {
-        return res.status(400).json({mensaje:'Error',detalles:  e.message});
+        return res.status(400).json({mensaje:'Error',detalles: e.message});
     }
 };
 

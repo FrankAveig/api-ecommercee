@@ -13,6 +13,7 @@ const {
   const{
     nuevoProducto,
     verProductos,
+    verProducto ,
     eliminarProductoPorId,
     actualizarProductoPorId,
     verMisProductosCreados,
@@ -35,6 +36,7 @@ const {
     verUsuario,
     nuevoProducto,
     verProductos,
+    verProducto ,
     eliminarProductoPorId,
     actualizarProductoPorId,
     verMisProductosCreados,

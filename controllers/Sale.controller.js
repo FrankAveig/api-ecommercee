@@ -51,7 +51,7 @@ const filtrarVentasUsuario = async (req, res) => {
     
     try {
       
-          const buyer = req.user.idUser
+      const buyer = req.user.idUser
       const compras = await Sale.find({buyer}).populate({ path: "products",
       select: {
         name: true,
