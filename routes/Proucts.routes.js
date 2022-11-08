@@ -13,7 +13,7 @@ const {
 
 router.post("/", auth, nuevoProducto);
 router.get("/getAll", verProductos);
-router.get('/verProducto/:id',verProducto)
+router.get('/:id',verProducto)
 router.get("/misProductos", auth, verMisProductosCreados);
 router.put("/:id", auth, actualizarProductoPorId);
 router.delete("/:id", auth, eliminarProductoPorId);
