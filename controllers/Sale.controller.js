@@ -77,7 +77,7 @@ const filtrarVentasUsuario = async (req, res) => {
   
       const actualizado = await Sale.findByIdAndUpdate(
         id,
-        { $set:{state: req.body }},
+        { $set: req.body },
         { new: true }
       );
       return res
