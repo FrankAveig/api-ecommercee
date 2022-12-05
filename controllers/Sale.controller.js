@@ -54,6 +54,8 @@ const filtrarVentasUsuario = async (req, res) => {
       select: {
         name: true,
         price: true,
+        img:true,
+        state: true,
       }});
       if (!compras.length)
         return res.status(404).json({ mensaje: "Error", detalles: "compras no encontradas" });
