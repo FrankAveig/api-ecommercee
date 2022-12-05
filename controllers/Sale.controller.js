@@ -29,8 +29,10 @@ const verVentas = async (req, res) => {
       .populate({
         path: "products",
         select: {
+          img:true,
           name: true,
           price: true,
+          state:true,
         }}); 
 
     if (!sales.length)
