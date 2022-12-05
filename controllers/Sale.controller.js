@@ -4,9 +4,7 @@ const Sale = mongoose.model("Sale");
 
 const nuevaVenta = async (req, res) => {
   try {
-    if (req.user.type !== "admin" || req.user.type !== "customer" ) { 
-        return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
-      }
+
     const sales = new Sale({ ...req.body, buyer: req.user.idUser });
 
     const resp = await sales.save();
