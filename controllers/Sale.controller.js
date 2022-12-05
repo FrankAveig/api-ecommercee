@@ -32,7 +32,7 @@ const verVentas = async (req, res) => {
           name: true,
           price: true,
           state:true,
-        }}).populate({path:"buyer", select:{ name:true , city:true}});; 
+        }}).populate({path:"buyer", select:{ name:true , city:true, img:true}});; 
 
     if (!sales.length)
       return res
