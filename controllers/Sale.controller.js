@@ -58,7 +58,7 @@ const filtrarVentasUsuario = async (req, res) => {
         price: true,
         img:true,
         state: true,
-      }}).populate({path:"buyer", select:{ name:true}});
+      }}).populate({path:"buyer", select:{ name:true , city:true}});
       if (!compras.length)
         return res.status(404).json({ mensaje: "Error", detalles: "compras no encontradas" });
       return res.status(200).json({ mensaje: "Compras encontradas", detalles: compras });
