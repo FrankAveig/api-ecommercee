@@ -25,7 +25,6 @@ const verVentas = async (req, res) => {
         return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
       }
     const sales = await Sale.find()
-      .populate("buyer", "name")
       .populate({
         path: "products",
         select: {
@@ -33,7 +32,7 @@ const verVentas = async (req, res) => {
           name: true,
           price: true,
           state:true,
-        }}); 
+        }}).populate({path:"buyer", select:{ name:true , city:true}});; 
 
     if (!sales.length)
       return res
