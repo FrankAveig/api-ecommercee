@@ -23,11 +23,11 @@ const SaleSchema = new mongoose.Schema({
     state:{
         type:String,
         enum:[
-            'solicitado',
-            'confirmado',
-            'enviado'
+            'Ordered',
+            'Confirmed',
+            'sent'
         ],
-        default:'solicitado',
+        default:'Ordered',
         required:true,
     }
   },
