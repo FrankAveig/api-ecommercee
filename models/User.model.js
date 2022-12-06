@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
     },
     img:{
         type:String,
-        default:'wwww.hola.com'
+        default:'https://cdn-icons-png.flaticon.com/512/149/149071.png'
     },
     salt:{
         type:String,
