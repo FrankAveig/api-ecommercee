@@ -129,9 +129,7 @@ const verUsuarios = async (req, res) => {
 
   const actualizarUsuario = async (req, res) => {
     try {
-        if (req.user.type !== "admin") {
-            return res.status(400).json({mensaje: "Error", detalles: "No tienes permiso para ver esto",});
-          }
+
       const { id } = req.params;
       const actualizado = await User.findByIdAndUpdate(
         id,
