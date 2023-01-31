@@ -27,7 +27,7 @@ Si se desea hacer uso del codigo de la api, para su correcto funcionamiento se d
     npm install mongoose  
     npm install jsonwebtoken
     npm install express-jwt
-    npm install mongoose-unique-validator
+    npm install mongoose-unique-validator 
     
 ```
 Importante se debe agregar un archivo de variables de entorno.
